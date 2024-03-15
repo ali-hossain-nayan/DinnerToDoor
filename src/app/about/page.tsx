@@ -8,7 +8,7 @@ import aboutImage from '../../../public/images/about-bg.jpg';
 export default function About() {
   return (
     <>
-      <Header />
+      <Header pathname={''} />
       <div className="relative h-screen">
         <Image
           src={aboutImage}

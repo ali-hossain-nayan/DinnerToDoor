@@ -1,23 +1,30 @@
 
 'use client'
 import React, { useState } from "react";
-import { menuCard, MenuItem } from "@/helpers/types";
+import toast, { Toaster } from "react-hot-toast";
+import { MenuItem } from "@/helpers/types";
 
-const MenuCard = ({ menuData, curElem }: menuCard) => {
+interface MenuCardProps {
+  menuData: MenuItem[];
+}
+
+const MenuCard: React.FC<MenuCardProps> = ({ menuData }) => {
   const [cartItems, setCartItems] = useState<MenuItem[]>([]);
 
   const addToCart = (item: MenuItem) => {
-    // Add the selected item to the cartItems state
     setCartItems([...cartItems, item]);
-    // You can add additional logic here, like showing a confirmation message
-    // or updating some other state related to the cart.
+    toast.success(`${item.name} added to cart`, {
+      position: "top-right",
+    });
   };
 
   return (
     <>
       <section className="main-card--cointainer">
+      <Toaster/>
+
         {menuData.map((item: MenuItem) => {
-          const { id, name, category, image, description } = item;
+          const { id, name, image, description } = item;
           return (
             <div className="card-container" key={id}>
               <div className="card">
@@ -29,7 +36,6 @@ const MenuCard = ({ menuData, curElem }: menuCard) => {
                     {description}
                   </span>
                   <div className="card-read">Read</div>
-                  {/* Add to Cart Button */}
                   <button
                     className="card-tag subtle"
                     onClick={() => addToCart(item)}

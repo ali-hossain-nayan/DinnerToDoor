@@ -19,7 +19,7 @@ const Blog = () => {
         <meta name="description" content="Welcome to my blog" />
       </Head>
 
-      <Header />
+      <Header pathname={''} />
       
       {/* Background image */}
       <div className="absolute inset-0 z-0 -mt-8">

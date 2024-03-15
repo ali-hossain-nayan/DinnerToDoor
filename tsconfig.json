@@ -13,6 +13,8 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "incremental": true,
+    // "target": "es5",
+    "downlevelIteration": true,
     "plugins": [
       {
         "name": "next"

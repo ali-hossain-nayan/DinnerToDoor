@@ -20,4 +20,15 @@ export interface user {
     curElem:any
     
   }
+  export interface MenuItem {
+    id: number;
+    name: string;
+    category: string;
+    image?: string; // Optional property
+    description?: string; // Optional property
+  }
+  export interface Blog{
+    title:string
+    content:string
+  }
   

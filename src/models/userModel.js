@@ -8,12 +8,20 @@ const userSchema = new mongoose.Schema({
     },
     email: {
         type: String,
-        required: [true, "Please provide a email"],
+        required: [true, "Please provide an email"],
         unique: true,
     },
     password: {
         type: String,
         required: [true, "Please provide a password"],
+    },
+    city: {
+        type: String,
+        required: [true, "Please provide a city"],
+    },
+    postcode: {
+        type: String,
+        required: [true, "Please provide a postcode"],
     },
     isVerfied: {
         type: Boolean,
@@ -27,7 +35,7 @@ const userSchema = new mongoose.Schema({
     forgotPasswordTokenExpiry: Date,
     verifyToken: String,
     verifyTokenExpiry: Date,
-})
+});
 
 const User = mongoose.models.users || mongoose.model("users", userSchema);
 

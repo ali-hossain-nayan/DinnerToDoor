@@ -1,8 +1,11 @@
-import { navbar, user } from "@/helpers/types";
+import {  user } from "@/helpers/types";
 import React from "react";
 
-
-const navbar = ({ filterItem, menuList }:navbar) => {
+interface NavbarProps {
+  filterItem: (category: string) => void;
+  menuList: string[];
+}
+const navbar = ({ filterItem, menuList }:NavbarProps) => {
   return (
     <>
       <nav className="navbar">

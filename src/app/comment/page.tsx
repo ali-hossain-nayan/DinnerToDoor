@@ -23,12 +23,12 @@ const CommentSection = ({ postId }) => {
     setNewComment('');
   };
 
-  const deleteComment = (commentId) => {
+  const deleteComment = (commentId:any) => {
     const updatedComments = comments.filter(comment => comment.id !== commentId);
     setComments(updatedComments);
   };
 
-  const startEditing = (commentId, text) => {
+  const startEditing = (commentId:any, text:any) => {
     setEditMode(commentId);
     setEditedText(text);
   };
@@ -38,7 +38,7 @@ const CommentSection = ({ postId }) => {
     setEditedText('');
   };
 
-  const saveEditedComment = (commentId) => {
+  const saveEditedComment = (commentId:any) => {
     const updatedComments = comments.map(comment => {
       if (comment.id === commentId) {
         return { ...comment, text: editedText };
@@ -62,7 +62,7 @@ const CommentSection = ({ postId }) => {
                   value={editedText}
                   onChange={(e) => setEditedText(e.target.value)}
                   className="w-full p-2 border border-gray-300 rounded-md mr-2"
-                  rows="2"
+                  rows={2}
                 />
                 <button className="bg-blue-500 text-white px-4 py-2 rounded-md mr-2" onClick={() => saveEditedComment(comment.id)}>Save</button>
                 <button className="bg-gray-300 text-gray-700 px-4 py-2 rounded-md" onClick={() => cancelEditing()}>Cancel</button>
