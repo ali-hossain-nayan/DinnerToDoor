@@ -1,10 +1,11 @@
 "use client";
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
+import profile from "../../../public/images/profile.png"
 
-// Update the user interface to include city and postcode
 interface User {
   username: string;
   email: string;
@@ -19,13 +20,17 @@ export default function ProfilePage({ username, email, _id, city, postcode }: Us
   const [loadingLogout, setLoadingLogout] = useState(false);
   const [loadingDetails, setLoadingDetails] = useState(false);
 
+  useEffect(() => {
+    getUserDetails();
+  }, []);
+
   const logout = async () => {
     setLoadingLogout(true);
     try {
       await axios.get("/api/users/logout");
       toast.success("Logout successful");
       router.push("/login");
-    } catch (error:any) {
+    } catch (error: any) {
       console.log(error.message);
       toast.error(error.message);
     } finally {
@@ -37,9 +42,8 @@ export default function ProfilePage({ username, email, _id, city, postcode }: Us
     setLoadingDetails(true);
     try {
       const res = await axios.get("/api/users/ami");
-      console.log(res.data);
       setUserData(res.data.data);
-    } catch (error:any) {
+    } catch (error: any) {
       console.log(error.message);
       toast.error(error.message);
     } finally {
@@ -48,59 +52,71 @@ export default function ProfilePage({ username, email, _id, city, postcode }: Us
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen py-4 bg-orae-400">
+    <div className="container mx-auto py-8 ">
+      {/* <Image src={profile} alt="profile" width={900}height={900}/> */}
       <Toaster />
-      <h1 className="text-3xl font-semibold mb-4">User Profile</h1>
-      <hr className="w-full mb-4" />
-      <p className="text-lg mb-2"></p>
-
+      <h1 className="text-3xl font-semibold mb-4 justify-center items-center flex flex-1 text-violet-700">User Profile</h1>
+      <hr className="border-t border-gray-200 mb-6" />
       {userData && (
-        <div className="flex flex-col items-center mb-6">
-          <h2 className="text-lg font-semibold bg-green-500 p-2 rounded mb-2">User Details</h2>
-          <p>
-            <strong>Username:</strong> {userData.username}
-          </p>
-          <p>
-            <strong>Email:</strong> {userData.email}
-          </p>
-          <p>
-            <strong>City:</strong> {userData.city}
-          </p>
-          <p>
-            <strong>Postcode:</strong> {userData.postcode}
-          </p>
-          <div>
-            <strong>User ID:</strong>{" "}
-            <button
-              className="text-blue-500 hover:underline"
-              onClick={() => router.push(`/profile/${userData._id}`)}
-            >
-              {userData._id}
-            </button>
+        <div className="max-w-lg mx-auto bg-white rounded-lg shadow-md overflow-hidden">
+          <div className="p-6">
+            <h2 className="text-lg font-semibold mb-4 text-red-400">User Details</h2>
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <label className="font-semibold flex gap-2 text-xl ">Username: <p className="text-green-600">{userData.username}</p>
+                </label>
+              </div>
+              <div>
+                <label className="font-semibold flex gap-2 text-xl">Email: <p className="text-green-600">{userData.email}</p></label>
+                <p></p>
+              </div>
+              <div>
+                <label className="font-semibold flex gap-2 text-xl">City:  <p>{userData.city}</p></label>
+              </div>
+              <div>
+                <label className="font-semibold flex gap-2 text-xl">Postcode:</label>
+                <p>{userData.postcode}</p>
+              </div>
+              <div className="col-span-2">
+                <label className="font-semibold">User ID:</label>
+                <p>
+                  <button
+                    className="text-blue-500 hover:underline"
+                    onClick={() => router.push(`/profile/${userData._id}`)}
+                  >
+                    {userData._id}
+                  </button>
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       )}
 
-      <hr className="w-full mb-4" />
-
-      <button
-        onClick={logout}
-        disabled={loadingLogout}
-        className={`bg-green-800 hover:text-orange-700 text-white font-bold py-2 px-4 rounded mb-2 ${
-          loadingLogout ? "opacity-50 cursor-not-allowed" : ""
-        }`}
-      >
-        {loadingLogout ? "Logging Out..." : "Logout"}
-      </button>
-      <button
-        onClick={getUserDetails}
-        disabled={loadingDetails}
-        className={`bg-green-800 hover:text-orange-700 text-white font-bold py-2 px-4 rounded ${
-          loadingDetails ? "opacity-50 cursor-not-allowed" : ""
-        }`}
-      >
-        {loadingDetails ? "Fetching Details..." : "Get User Details"}
-      </button>
+      <div className="flex justify-center mt-6 space-x-4">
+        <button
+          onClick={logout}
+          disabled={loadingLogout}
+          className={`bg-green-800 text-white font-bold py-2 px-4 rounded hover:bg-violet-700 ${loadingLogout ? "opacity-50 cursor-not-allowed" : ""
+            }`}
+        >
+          {loadingLogout ? "Logging Out..." : "Logout"}
+        </button>
+        <button
+          onClick={getUserDetails}
+          disabled={loadingDetails}
+          className={`bg-green-800 text-white font-bold py-2 px-4 rounded hover:bg-violet-700 ${loadingDetails ? "opacity-50 cursor-not-allowed" : ""
+            }`}
+        >
+          {loadingDetails ? "Fetching Details..." : "Refresh Details"}
+        </button>
+        <button
+          onClick={() => router.push("/")}
+          className="absolute top-4 left-4 bg-blue-800 text-white px-3 py-1 rounded hover:bg-violet-700"
+        >
+          Back to Home
+        </button>
+      </div>
     </div>
   );
 }
