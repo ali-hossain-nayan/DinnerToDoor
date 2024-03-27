@@ -52,7 +52,7 @@ export default function ProfilePage({ username, email, _id, city, postcode }: Us
   };
 
   return (
-    <div className="container mx-auto py-8 ">
+    <div className="container mx-auto py-8  ">
       {/* <Image src={profile} alt="profile" width={900}height={900}/> */}
       <Toaster />
       <h1 className="text-3xl font-semibold mb-4 justify-center items-center flex flex-1 text-violet-700">User Profile</h1>
