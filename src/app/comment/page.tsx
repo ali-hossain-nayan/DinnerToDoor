@@ -1,15 +1,19 @@
-'use client'
-
+'use client';
 
 import React, { useState, useEffect } from 'react';
 
+interface Comment {
+  id: number;
+  text: string;
+}
+
 const CommentSection = () => {
-  const [comments, setComments] = useState(() => {
+  const [comments, setComments] = useState<Comment[]>(() => {
     const storedComments = localStorage.getItem('comments');
     return storedComments ? JSON.parse(storedComments) : [];
   });
   const [newComment, setNewComment] = useState('');
-  const [editMode, setEditMode] = useState(null);
+  const [editMode, setEditMode] = useState<number | null>(null);
   const [editedText, setEditedText] = useState('');
 
   useEffect(() => {
@@ -18,17 +22,17 @@ const CommentSection = () => {
 
   const postComment = () => {
     if (!newComment.trim()) return;
-    const newCommentObj = { id: Date.now(), text: newComment.trim() };
+    const newCommentObj: Comment = { id: Date.now(), text: newComment.trim() };
     setComments([...comments, newCommentObj]);
     setNewComment('');
   };
 
-  const deleteComment = () => {
+  const deleteComment = (commentId: number) => {
     const updatedComments = comments.filter(comment => comment.id !== commentId);
     setComments(updatedComments);
   };
 
-  const startEditing = (commentId:any, text:any) => {
+  const startEditing = (commentId: number, text: string) => {
     setEditMode(commentId);
     setEditedText(text);
   };
@@ -38,7 +42,7 @@ const CommentSection = () => {
     setEditedText('');
   };
 
-  const saveEditedComment = (commentId:any) => {
+  const saveEditedComment = (commentId: number) => {
     const updatedComments = comments.map(comment => {
       if (comment.id === commentId) {
         return { ...comment, text: editedText };
@@ -54,7 +58,7 @@ const CommentSection = () => {
     <div className="bg-gray-100 p-4 rounded-lg shadow-lg">
       <h2 className="text-xl font-bold mb-4">Comments</h2>
       <ul>
-        {comments.map(comment => (
+        {comments.map((comment: Comment) => (
           <li key={comment.id} className="mb-2">
             {editMode === comment.id ? (
               <div className="flex items-center">
