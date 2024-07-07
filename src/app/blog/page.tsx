@@ -1,6 +1,4 @@
-
 'use client'
-// pages/blog.js
 // pages/blog.js
 import React from 'react';
 import Head from 'next/head';
@@ -19,18 +17,13 @@ const Blog = () => {
         <meta name="description" content="Welcome to my blog" />
       </Head>
 
-      <Header pathname={''} />
+      <Header />
 
       {/* Background image */}
       <div className="absolute inset-0 z-0 -mt-8">
         <Image
           src={blogImage}
           alt='blog'
-        // layout="fill"
-        // objectFit="cover"
-        // quality={100}
-        // hight={3000}
-        // width={3000}
         />
       </div>
 
