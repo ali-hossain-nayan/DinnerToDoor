@@ -1,5 +1,5 @@
 // components/CartContext.tsx
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useState, ReactNode } from 'react';
 
 interface CartItem {
   id: number;
@@ -13,6 +13,10 @@ interface CartContextType {
   cartCount: number;
 }
 
+interface CartProviderProps {
+  children: ReactNode;
+}
+
 const CartContext = createContext<CartContextType>({
   cartItems: [],
   addToCart: () => {},
@@ -21,7 +25,7 @@ const CartContext = createContext<CartContextType>({
 
 export const useCart = () => useContext(CartContext);
 
-export const CartProvider: React.FC = ({ children }) => {
+export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
 
   const addToCart = (item: CartItem) => {
