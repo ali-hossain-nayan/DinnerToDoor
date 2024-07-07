@@ -14,7 +14,7 @@ interface User {
   postcode: string;
 }
 
-export default function ProfilePage({ username, email, _id, city, postcode }: User) {
+export default function ProfilePage() {
   const router = useRouter();
   const [userData, setUserData] = useState<User | null>(null);
   const [loadingLogout, setLoadingLogout] = useState(false);
