@@ -4,8 +4,9 @@ import { useRouter, usePathname } from "next/navigation";
 import Restaurant from "./Restaurant";
 
 interface HeaderProps {
-  // Add props if needed
+  pathname: string;
 }
+
 
 const Header: React.FC<HeaderProps> = () => {
   const router = useRouter();
