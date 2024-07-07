@@ -57,7 +57,7 @@ const Blog = () => {
 
         </div>
 
-        <CommentSection postId={1} />
+        <CommentSection  />
       </main>
 
       {/* Footer */}
