@@ -3,7 +3,7 @@
 
 import React, { useState, useEffect } from 'react';
 
-const CommentSection = ({ postId }) => {
+const CommentSection = () => {
   const [comments, setComments] = useState(() => {
     const storedComments = localStorage.getItem('comments');
     return storedComments ? JSON.parse(storedComments) : [];
