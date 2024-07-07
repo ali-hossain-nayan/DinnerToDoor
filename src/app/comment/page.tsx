@@ -23,7 +23,7 @@ const CommentSection = () => {
     setNewComment('');
   };
 
-  const deleteComment = (commentId:any) => {
+  const deleteComment = () => {
     const updatedComments = comments.filter(comment => comment.id !== commentId);
     setComments(updatedComments);
   };
