@@ -23,7 +23,7 @@ export default function Home() {
 
   return (
     <>
-      <Header pathname={""} />
+      <Header />
       <div className="flex justify-center items-center h-screen bg-violet-400">
         <div className="text-center mr-8">
           <h2 className="text-4xl font-bold sm:text-5xl">
